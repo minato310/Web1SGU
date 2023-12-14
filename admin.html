@@ -17,10 +17,42 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #fff;
-            color: #000;
-            line-height: 1.6;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        #sidebar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mainContent {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .menuButton {
+            margin-bottom: 10px;
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        .menuButton:hover {
+            background-color: #777;
+        }
+
+        .contentSection {
+            display: none;
         }
 
         header {
@@ -484,8 +516,69 @@
         }
 
 #orderManagementContent {
-    display: none;
-}
+        display: none;
+        max-width: 1350px; /* Tăng độ rộng của khung */
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #000; /* Sửa màu đường viền của khung thành đen */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .filter-btn {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #orderList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .order-entry {
+        flex-basis: calc(33.33% - 10px);
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .order-entry:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+        margin: 5px 0;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 12px 20px; /* Tăng độ rộng và chiều dài của nút */
+        background-color: #000; /* Đổi màu nút thành đen */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #333; /* Màu khi nút được di chuột qua */
+    }
+
+    button:disabled {
+        background-color: #666; /* Màu khi nút bị vô hiệu hóa */
+        cursor: not-allowed;
+    }
 #orderManagementButton:hover {
     background-color: darkgray; /* Màu nền khi hover */
     color: black; /* Màu chữ khi hover */
@@ -533,6 +626,49 @@
     background-color: darkgray; /* Màu nền khi hover */
     color: black; /* Màu chữ khi hover */
 }
+    #statisticsContent {
+        display: none;
+        max-width: 1350px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #000;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-btn {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #statisticsResult {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .order-entry {
+        flex-basis: calc(50% - 10px);
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 5px 0;
+    }
+
+    .total-info {
+        font-weight: bold;
+        margin-top: 20px; /* Khoảng cách từ tổng số lượng đến các thống kê */
+    }
 .edit-btn, .lock-btn {
             background-color: #000;
             color: #fff;
@@ -573,12 +709,32 @@
         button.stats-btn:hover {
             background-color: #333; /* Màu đen nhạt hơn khi hover */
         }
+		.edit-button,
+    .delete-button {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        margin-right: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .edit-button:hover,
+    .delete-button:hover {
+        background-color: #333; /* Darker shade for hover effect */
+    }
 </style>
 <body>
-    <h1 style="text-align: center;" >Admin interface</h1>
-     <button id="productManagementButton">Quản lý sản phẩm</button>
-
-<div id="productManagementContent" style="display: none;">
+	<div id="sidebar">
+	    <h1 >Admin interface</h1>
+        <button class="menuButton" onclick="toggleContent('productManagementContent')">Quản lý sản phẩm</button>
+        <button class="menuButton" onclick="toggleContent('userManagementContent')">Quản lý người dùng</button>
+        <button class="menuButton" onclick="toggleContent('orderManagementContent')">Quản lý đơn hàng</button>
+        <button class="menuButton" onclick="toggleContent('statisticsContent')">Thống kê kinh doanh</button>
+    </div>
+<div id="mainContent">
+<div id="productManagementContent" class="contentSection">
 <!-- Thêm modal vào trong thẻ body -->
 <div id="editProductModal" class="modal">
     <div class="modal-content">
@@ -600,6 +756,9 @@
 
             <label for="editProductImage">Image URL:</label>
             <input type="text" id="editProductImage" name="editProductImage">
+			
+			<label for="editProductDescription">Description:</label>
+<textarea id="editProductDescription" name="editProductDescription"></textarea>
 
             <button type="button" onclick="updateProduct()">Update</button>
         </form>
@@ -630,12 +789,15 @@
 
             <label for="newProductImage">Image URL:</label>
             <input type="text" id="newProductImage" name="newProductImage">
+			
+			<label for="newProductDetails">Details:</label>
+<textarea id="newProductDetails" name="newProductDetails"></textarea>
 
             <button type="button" onclick="submitNewProduct()">Add</button>
         </form>
     </div>
 </div>
-
+<div id="pagination" class="pagination"></div>
     <!-- Danh sách sản phẩm -->
     <div id="productList" class="category-container">
             <div id="productContainer"class="category" data-category="phone"data-name="iPhone 15 Pro Max" data-price="45000000">
@@ -1323,8 +1485,7 @@
         </div>
     </div>
 </div>
-<button id="userManagementButton" onclick="openUserManagementModal()">Quản lý người dùng</button>
-<div id="userManagementContent" style="display: none;">
+<div id="userManagementContent" class="contentSection">
 <div id="userList" class="category-container">
     <!-- Người dùng 1 -->
     <div class="category" data-category="user" data-name="user1">
@@ -1421,8 +1582,7 @@
 
 </div>
 </div>
-<button id="orderManagementButton" onclick="openOrderManagementModal()">Quản lý đơn hàng</button>
-<div id="orderManagementContent" style="display: none;">
+<div id="orderManagementContent" class="contentSection">
 <!-- Filter orders by date range -->
 <label for="startDate">Từ ngày:</label>
 <input type="date" id="startDate">
@@ -1502,8 +1662,7 @@
     </div>
 </div>
 </div>
-<button id="statisticsButton" onclick="toggleStatisticsModal()">Thống kê kinh doanh</button>
-<div id="statisticsContent" style="display: none;">
+<div id="statisticsContent" class="contentSection">
     <label for="productInput">Nhập tên sản phẩm:</label>
     <input type="text" id="productInput">
     <label for="startDate">Từ ngày:</label>
@@ -1516,7 +1675,7 @@
         <!-- Kết quả thống kê sẽ được hiển thị ở đây -->
     </div>
 </div>
-
+</div>
 <script>
     var orders = [
         { id: 'OD123', products: [{ name: 'iPhone 15', quantity: 1 }], date: '2023-01-01' },
@@ -1608,6 +1767,7 @@
 
         if (totalQuantity > 0) {
             var statisticInfo = document.createElement('p');
+			statisticInfo.classList.add('total-info');
             statisticInfo.textContent = `Tổng số lượng ${productName || 'sản phẩm'}: ${totalQuantity}`;
             statisticsResult.appendChild(statisticInfo);
         } else {
@@ -1936,64 +2096,64 @@ function saveEditedUserInfo() {
     <script> 
 	// Mảng chứa thông tin sản phẩm (bạn có thể nạp từ server)
 let products = [
-    { name: 'iPhone 15 Pro Max', color: 'Black', capacity: '1TB', price: 45000000, image: 'hinh%20anh/iphone%2015%20promax.webp' },
-	{ name: 'iPhone 15 ', color: 'Pink', capacity: '512GB', price: 36000000, image: 'hinh%20anh/iphone%2015.png' },
-    { name: 'iPhone 14 Pro Max', color: 'Gold', capacity: '256GB', price: 36000000, image: 'hinh%20anh/iphone%2014%20promax.png' },
-	{ name: 'iPhone 12', color: 'Green', capacity: '64GB', price: 15000000, image: 'hinh%20anh/iphone%2012.png' },
-	{ name: 'iPad Pro M2 11 inch Wifi Cellullar', color: 'Silver', capacity: '128GB', price: 25000000, image: 'hinh%20anh/ipad%20pro%20m2.jpg' },
-	{ name: 'iPpad mini 6 Wifi+5G', color: 'Silver', capacity: '256GB', price: 16890000, image: 'hinh%20anh/ipad%20mini%206.webp' },
-	{ name: 'iPad GEN 9 (4G)', color: 'Silver', capacity: '1TB', price: 16890000, image: 'hinh%20anh/ipad%20gen%209.webp' },
-	{ name: 'iPad Air 5 10.9 inch(2022)', color: 'Silver', capacity: '512GB', price: 16890000, image: 'hinh%20anh/ipad%20air%205.jpg' },
-	{ name: 'MacBook Air 15 inch M2 2023', color: 'Midnight',Ram: '8GB', SSD: '512GB', price: 34990000, image: 'hinh%20anh/mac%20air%2015.webp' },
-	{ name: 'MacBook Air 13 inch M2 2022', color: 'Midnight',Ram: '8GB', SSD: '256GB', price: 26590000, image: 'hinh%20anh/mac%20air%2013%202022.webp' },
-	{ name: 'MacBook Pro 16 inch M2 Pro 2023', color: 'Midnight',Ram: '16GB', SSD: '512GB', price: 59690000, image: 'hinh%20anh/mac%20pro.webp'},
-	{ name: 'MacBook Air 13 inch M1 2020', color: 'Midnight',Ram: '8GB', SSD: '256GB', price: 19590000, image: 'hinh%20anh/mac%20air%2013%202020.webp'},
-	{ name: 'Apple AirPods 2', color: 'White', price: 2690000, image: 'hinh%20anh/airpods%202.webp'},
-	{ name: 'Apple AirPods 3 MagSafe', color: 'White', price: 4690000, image: 'hinh%20anh/airpods%203.webp'},
-	{ name: 'Apple AirPods Pro 2021 Magsafe', color: 'White', price: 4690000, image: 'hinh%20anh/airpods%20pro%202021.webp'},
-	{ name: 'Apple AirPods Pro 2022', color: 'White', price: 5690000, image: 'hinh%20anh/airpods%20pro%202022.webp'},
+    { name: 'iPhone 15 Pro Max', color: 'Black', capacity: '1TB', price: 45000000, image: 'hinh%20anh/iphone%2015%20promax.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'iPhone 15 ', color: 'Pink', capacity: '512GB', price: 36000000, image: 'hinh%20anh/iphone%2015.png',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+    { name: 'iPhone 14 Pro Max', color: 'Gold', capacity: '256GB', price: 36000000, image: 'hinh%20anh/iphone%2014%20promax.png',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center'  },
+	{ name: 'iPhone 12', color: 'Green', capacity: '64GB', price: 15000000, image: 'hinh%20anh/iphone%2012.png',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center'  },
+	{ name: 'iPad Pro M2 11 inch Wifi Cellullar', color: 'Silver', capacity: '128GB', price: 25000000, image: 'hinh%20anh/ipad%20pro%20m2.jpg',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center'  },
+	{ name: 'iPpad mini 6 Wifi+5G', color: 'Silver', capacity: '256GB', price: 16890000, image: 'hinh%20anh/ipad%20mini%206.webp' ,description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'iPad GEN 9 (4G)', color: 'Silver', capacity: '1TB', price: 16890000, image: 'hinh%20anh/ipad%20gen%209.webp' ,description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'iPad Air 5 10.9 inch(2022)', color: 'Silver', capacity: '512GB', price: 16890000, image: 'hinh%20anh/ipad%20air%205.jpg',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center'  },
+	{ name: 'MacBook Air 15 inch M2 2023', color: 'Midnight',Ram: '8GB', SSD: '512GB', price: 34990000, image: 'hinh%20anh/mac%20air%2015.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center'  },
+	{ name: 'MacBook Air 13 inch M2 2022', color: 'Midnight',Ram: '8GB', SSD: '256GB', price: 26590000, image: 'hinh%20anh/mac%20air%2013%202022.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center'  },
+	{ name: 'MacBook Pro 16 inch M2 Pro 2023', color: 'Midnight',Ram: '16GB', SSD: '512GB', price: 59690000, image: 'hinh%20anh/mac%20pro.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'MacBook Air 13 inch M1 2020', color: 'Midnight',Ram: '8GB', SSD: '256GB', price: 19590000, image: 'hinh%20anh/mac%20air%2013%202020.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'Apple AirPods 2', color: 'White', price: 2690000, image: 'hinh%20anh/airpods%202.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'Apple AirPods 3 MagSafe', color: 'White', price: 4690000, image: 'hinh%20anh/airpods%203.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'Apple AirPods Pro 2021 Magsafe', color: 'White', price: 4690000, image: 'hinh%20anh/airpods%20pro%202021.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
+	{ name: 'Apple AirPods Pro 2022', color: 'White', price: 5690000, image: 'hinh%20anh/airpods%20pro%202022.webp',description: '100% new device, genuine from Apple Vietnam.Attached accessories: Phone charger. 1 FOR 1 EXCHANGE within 30 days if there is a manufacturer hardware defect. 12-month warranty at Apple official warranty center' },
 ];
-
+let itemsPerPage = 8; // Số sản phẩm trên mỗi trang
+let currentPage = 1;
 // Hàm hiển thị danh sách sản phẩm
 function displayProducts() {
-    const productListContainer = document.getElementById('productList');
+    let startIndex = (currentPage - 1) * itemsPerPage;
+    let endIndex = startIndex + itemsPerPage;
+    let productsToDisplay = products.slice(startIndex, endIndex);
+
+    let productListContainer = document.getElementById('productList');
     productListContainer.innerHTML = '';
 
-    products.forEach(product => {
-        const productContainer = document.createElement('div');
+    productsToDisplay.forEach(function(product) {
+        let productContainer = document.createElement('div');
         productContainer.classList.add('category');
         productContainer.dataset.category = 'phone';
         productContainer.dataset.name = product.name;
 
-        // Tạo nút để sửa sản phẩm
-        const editButton = document.createElement('button');
+        let editButton = document.createElement('button');
         editButton.textContent = 'Edit';
+        editButton.className = 'edit-button';
         editButton.onclick = () => editProduct(product.name);
-        
-        // Tạo nút để xóa sản phẩm
-        const deleteButton = document.createElement('button');
+
+        let deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
+        deleteButton.className = 'delete-button';
         deleteButton.onclick = () => confirmDelete(product.name);
 
-        // Tạo phần tử hình ảnh sản phẩm
-        const productImage = document.createElement('img');
+        let productImage = document.createElement('img');
         productImage.src = product.image;
         productImage.alt = product.name;
 
-        // Tạo phần tử tiêu đề h3
-        const productName = document.createElement('h3');
+        let productName = document.createElement('h3');
         productName.textContent = product.name;
 
-        // Tạo phần tử đoạn văn mô tả màu sắc sản phẩm
-        const productColor = document.createElement('p');
+        let productColor = document.createElement('p');
         productColor.textContent = product.color;
 
-        // Tạo phần tử giá sản phẩm
-        const productPrice = document.createElement('span');
+        let productPrice = document.createElement('span');
         productPrice.classList.add('price');
         productPrice.textContent = `${product.price} vnd`;
 
-        // Thêm phần tử vào productContainer
         productContainer.appendChild(productImage);
         productContainer.appendChild(productName);
         productContainer.appendChild(productColor);
@@ -2001,11 +2161,39 @@ function displayProducts() {
         productContainer.appendChild(editButton);
         productContainer.appendChild(deleteButton);
 
-        // Thêm sản phẩm vào danh sách
         productListContainer.appendChild(productContainer);
     });
+	displayPagination();
+    highlightCurrentPageButton();
+}
+function displayPagination() {
+    let totalPages = Math.ceil(products.length / itemsPerPage);
+    let paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        let pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.onclick = function() {
+            currentPage = parseInt(this.textContent);
+            displayProducts();
+        };
+
+        paginationContainer.appendChild(pageButton);
+    }
 }
 
+function highlightCurrentPageButton() {
+    let buttons = document.getElementById('pagination').getElementsByTagName('button');
+
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+    }
+
+    buttons[currentPage - 1].classList.add('active');
+}
+
+displayProducts();
 
 // Hàm để mở modal thêm sản phẩm
 function openAddProductModal() {
@@ -2016,6 +2204,7 @@ function openAddProductModal() {
     document.getElementById('editProductPrice').value = '';
     document.getElementById('editProductImage').value = '';  // Đặt giá trị này để tránh việc hiển thị hình ảnh trước từ lần trước
     document.getElementById('editImagePreview').innerHTML = '';
+	document.getElementById('newProductDetails').value = '';
 
     // Mở modal
     openEditModal();
@@ -2052,6 +2241,7 @@ function editProduct(productName) {
         document.getElementById('editProductCapacity').value = product.capacity;
         document.getElementById('editProductPrice').value = product.price;
         document.getElementById('editProductImage').value = product.image;
+		document.getElementById('editProductDescription').value = product.description;
 
         // Gọi hàm openEditModal() để mở modal
         openEditModal();
@@ -2117,6 +2307,7 @@ function updateProduct() {
     const updatedCapacity = document.getElementById('editProductCapacity').value;
     const updatedPrice = document.getElementById('editProductPrice').value;
     const updatedImage = document.getElementById('editProductImage').value;
+	const updatedDescription = document.getElementById('editProductDescription').value;
 
     // Cập nhật thông tin sản phẩm trong mảng
     const productIndex = products.findIndex(product => product.name === updatedName);
@@ -2126,7 +2317,8 @@ function updateProduct() {
             color: updatedColor,
             capacity: updatedCapacity,
             price: parseFloat(updatedPrice),
-            image: updatedImage
+            image: updatedImage,
+			description: updatedDescription
         };
 
         // Đóng modal sau khi cập nhật
@@ -2171,6 +2363,7 @@ function submitNewProduct() {
     const newProduct = {
         name: document.getElementById('newProductName').value,
         color: document.getElementById('newProductColor').value,
+		details: document.getElementById('newProductDetails').value,
         // Add other fields similarly...
     };
 
@@ -2223,6 +2416,17 @@ function deleteProduct(productName) {
 
     // Lưu dữ liệu vào Local Storage
     localStorage.setItem('products', JSON.stringify(updatedProducts));
+}
+function toggleContent(contentId) {
+    var contentSections = document.getElementsByClassName('contentSection');
+    for (var i = 0; i < contentSections.length; i++) {
+        contentSections[i].style.display = 'none';
+    }
+
+    var selectedContent = document.getElementById(contentId);
+    if (selectedContent) {
+        selectedContent.style.display = (selectedContent.style.display === 'block') ? 'none' : 'block';
+    }
 }
 	</script>
 </body>
