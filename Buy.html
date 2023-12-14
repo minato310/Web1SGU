@@ -617,6 +617,19 @@
     .business-cooperation h2 {
       color: #333;
     }
+	.close-button {
+    background-color: black; /* Màu nền là đen */
+    color: white; /* Màu chữ là trắng */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền trong 0.3 giây */
+}
+
+/* Hiệu ứng hover */
+.close-button:hover {
+    background-color: darkgrey; /* Màu nền khi di chuột qua là darkgrey */
+}
 </style>
 </head>
 
@@ -742,7 +755,7 @@
             <p><strong>Password:</strong> <span id="customerPassword"></span></p>
             <img src="hinh%20anh/avatar.jpg" alt="Default Image" style="max-width: 100%; max-height: 200px;">
             <!-- Add other customer information here -->
-            <button class="modal-button" onclick="closeModal()">Close</button>
+            <button class="modal-button close-button" onclick="closeModal()">Close</button>
         </div>
     </div>
 
